@@ -5,6 +5,10 @@ import 'reusable_card.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
+const activeCardColour = Color(0xFF1D1E33);
+const inactiveCardColour = Color(0xFF111328);
+
+enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   @override
@@ -12,6 +16,32 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender? selectedGender;
+
+  // using Enums and ternary operator
+  // Color maleCardColor = inactiveCardColour;
+  // Color femaleCardColor = inactiveCardColour;
+  //
+  // void updateColor(Gender selectedGender) {
+  //   if (selectedGender == Gender.male) {
+  //     if (maleCardColor == inactiveCardColour) {
+  //       maleCardColor = activeCardColour;
+  //       femaleCardColor = inactiveCardColour;
+  //     } else {
+  //       maleCardColor = inactiveCardColour;
+  //     }
+  //   }
+  //
+  //   if (selectedGender == Gender.female) {
+  //     if (femaleCardColor == inactiveCardColour) {
+  //       femaleCardColor = activeCardColour;
+  //       maleCardColor = inactiveCardColour;
+  //     } else {
+  //       femaleCardColor = inactiveCardColour;
+  //     }
+  //    }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +55,14 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: ReusableCard(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.male;
+                    });
+                  },
+                  Colour: selectedGender == Gender.male
+                      ? activeCardColour
+                      : inactiveCardColour,
                   cardChild: IconContent(
                     icone: FontAwesomeIcons.mars,
                     genero: "Male",
@@ -33,6 +71,14 @@ class _InputPageState extends State<InputPage> {
               ),
               Expanded(
                 child: ReusableCard(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.female;
+                    });
+                  },
+                  Colour: selectedGender == Gender.female
+                      ? activeCardColour
+                      : inactiveCardColour,
                   cardChild: IconContent(
                     icone: FontAwesomeIcons.venus,
                     genero: "Female",
@@ -42,16 +88,22 @@ class _InputPageState extends State<InputPage> {
             ],
           )),
           Expanded(
-            child: ReusableCard(),
+            child: ReusableCard(
+              Colour: activeCardColour,
+            ),
           ),
           Expanded(
               child: Row(
             children: <Widget>[
               Expanded(
-                child: ReusableCard(),
+                child: ReusableCard(
+                  Colour: activeCardColour,
+                ),
               ),
               Expanded(
-                child: ReusableCard(),
+                child: ReusableCard(
+                  Colour: activeCardColour,
+                ),
               ),
             ],
           )),
